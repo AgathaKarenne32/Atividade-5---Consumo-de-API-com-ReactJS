@@ -19,133 +19,124 @@ function App() {
 
   // Função de busca de filmes
   const handleSearch = async (searchTerm, pageNumber = 1) => {
-    setQuery(searchTerm) // atualiza o termo de busca
-    setLoading(true) // inicia indicador de loading
-    setError(null) // reseta mensagens de erro
+    setQuery(searchTerm)
+    setLoading(true)
+    setError(null)
 
     try {
-      // chamada à API de busca de filmes
       const { results, page: currentPage, totalPages } = await searchMovies(searchTerm, pageNumber);
-
-      // caso não haja resultados
-      if (results.length === 0) {
-        setError("Nenhum filme encontrado.");
-      }
-
-      setMovies(results) // atualiza lista de filmes
-      setPage(currentPage) // atualiza página atual
-      setTotalPages(totalPages) // atualiza total de páginas
+      if (results.length === 0) setError("Nenhum filme encontrado.");
+      setMovies(results)
+      setPage(currentPage)
+      setTotalPages(totalPages)
     } catch (err) {
       console.error(err)
-      setError("Ocorreu um erro ao buscar os filmes.") // mensagem de erro genérica
+      setError("Ocorreu um erro ao buscar os filmes.")
     } finally {
-      setLoading(false) // finaliza loading
+      setLoading(false)
     }
   }
 
-  // Função para exibir detalhes de um filme
   const handleDetails = async (movie) => {
-    const details = await getMovieDetails(movie.id); // busca detalhes do filme
-    setSelectedMovie(details); // atualiza estado para abrir modal
+    const details = await getMovieDetails(movie.id);
+    setSelectedMovie(details);
   }
 
-  // Função para fechar modal de detalhes
   const handleCloseDetails = () => setSelectedMovie(null)
 
-  // Funções de paginação
-  const handleNextPage = () => {
-    if (page < totalPages) handleSearch(query, page + 1); // vai para próxima página
-  }
+  const handleNextPage = () => { if(page < totalPages) handleSearch(query, page + 1) }
+  const handlePrevPage = () => { if(page > 1) handleSearch(query, page - 1) }
 
-  const handlePrevPage = () => {
-    if (page > 1) handleSearch(query, page - 1); // vai para página anterior
-  }
-
-  // Carregar favoritos do localStorage ao iniciar
   useEffect(() => {
     const favs = JSON.parse(localStorage.getItem("favoritos")) || [];
     setFavoritos(favs)
   }, [])
 
-  // Salvar favoritos sempre que mudar
   useEffect(() => {
     localStorage.setItem("favoritos", JSON.stringify(favoritos));
   }, [favoritos])
 
-  // Adicionar ou remover filme dos favoritos
   const toggleFavorito = (filme) => {
     const jaFavorito = favoritos.some((fav) => fav.id === filme.id);
     if (jaFavorito) {
-      setFavoritos(favoritos.filter((fav) => fav.id !== filme.id)); // remove se já está nos favoritos
+      setFavoritos(favoritos.filter((fav) => fav.id !== filme.id));
     } else {
-      setFavoritos([...favoritos, filme]); // adiciona aos favoritos
+      setFavoritos([...favoritos, filme]);
     }
   }
 
   return (
     <Router>
       {/* Navegação */}
-      <nav style={{ padding: "10px", background: "#eee" }}>
-        <Link to="/" style={{ marginRight: "10px" }}>Home</Link>
-        <Link to="/favoritos">Favoritos</Link>
-      </nav>
+      <header className="app-header">
+  <nav className="nav-bar">
+    <Link to="/" className="nav-link">Home</Link>
+    <Link to="/favoritos" className="nav-link">Favoritos</Link>
+  </nav>
+</header>
 
-      <Routes>
-        {/* Página inicial */}
-        <Route
-          path="/"
-          element={
-            <div style={{ padding: "20px" }}>
-              <h1>Busca de Filmes</h1>
-              <PaginaBuscar onSearch={handleSearch} />
+<main className="app-main">
+  <Routes>
+    <Route
+      path="/"
+      element={
+        <section className="page-busca">
+          <h1 className="page-title">Busca de Filmes</h1>
+          <PaginaBuscar onSearch={handleSearch} />
 
-              {/* Lista de filmes buscados */}
-              <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {loading && <p>Carregando filmes...</p>}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-  
-                {!loading && !error && movies.map((movie) => (
-                  <MovieCard
-                    key={movie.id}
-                    movie={movie}
-                    onDetails={handleDetails}
-                    onToggleFavorito={toggleFavorito}
-                    isFavorito={favoritos.some((fav) => fav.id === movie.id)}
-                  />
-                ))}
-              </div>
+          <div className="movies-container">
+            {loading && <p className="loading">Carregando filmes...</p>}
+            {error && <p className="error">{error}</p>}
+            {!loading && !error && movies.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                onDetails={handleDetails}
+                onToggleFavorito={toggleFavorito}
+                isFavorito={favoritos.some((fav) => fav.id === movie.id)}
+              />
+            ))}
+          </div>
 
-
-              {/* Paginação */}
-              {movies.length > 0 && (
-                <div style={{ marginTop: "20px" }}>
-                  <button onClick={handlePrevPage} disabled={page === 1}>Página anterior</button>
-                  <span style={{ margin: "0 10px" }}>Página {page} de {totalPages}</span>
-                  <button onClick={handleNextPage} disabled={page === totalPages}>Próxima Página</button>
-                </div>
-              )}
-
-              {/* Modal de detalhes */}
-              {selectedMovie && (
-                <MovieDetails movie={selectedMovie} onClose={handleCloseDetails} />
-              )}
+          {movies.length > 0 && (
+            <div className="pagination">
+              <button onClick={handlePrevPage} disabled={page === 1}>Página anterior</button>
+              <span>Página {page} de {totalPages}</span>
+              <button onClick={handleNextPage} disabled={page === totalPages}>Próxima Página</button>
             </div>
-          }
-        />
+          )}
 
-        {/* Página de favoritos */}
-        <Route
-          path="/favoritos"
-          element={
-            <Favoritos
-              favoritos={favoritos} // lista de favoritos
-              onRemove={toggleFavorito} // função para remover favorito
-            />
-          }
-        />
-      </Routes>
+          {selectedMovie && <MovieDetails movie={selectedMovie} onClose={handleCloseDetails} />}
+        </section>
+      }
+    />
+
+    <Route
+      path="/favoritos"
+      element={
+        <section className="page-favoritos">
+          <h1 className="page-title">Meus Favoritos</h1>
+          <div className="favoritos-container">
+            {favoritos.length === 0 && <p>Nenhum favorito ainda.</p>}
+            {favoritos.map((movie) => (
+              <div className="favorito-card" key={movie.id}>
+                <img
+                  src={movie.poster_path ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` : 'https://via.placeholder.com/200x300?text=Sem+Imagem'}
+                  alt={movie.title}
+                />
+                <h3>{movie.title}</h3>
+                <button onClick={() => toggleFavorito(movie)}>Remover dos Favoritos</button>
+              </div>
+            ))}
+          </div>
+        </section>
+      }
+    />
+  </Routes>
+</main>
+
     </Router>
   )
-
 }
+
 export default App;

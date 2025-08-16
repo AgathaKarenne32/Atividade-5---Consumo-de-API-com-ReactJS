@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
+/* Reset básico */
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e1e2f; /* fundo escuro tipo HBO roxo/azulado */
+  color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Header e navegação */
+.app-header {
+  background-color: #4b0082; /* roxo HBO */
+  padding: 15px 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-bar {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Container principal */
+.app-main {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Título das páginas */
+.page-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Container de filmes */
+.movies-container,
+.favoritos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Card de filme */
+.movie-card,
+.favorito-card {
+  background-color: #2e2e3f;
+  border-radius: 8px;
+  width: 200px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.movie-card:hover,
+.favorito-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-card img,
+.favorito-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Botões */
+.movie-card button,
+.favorito-card button,
+.pagination button {
+  margin-top: 5px;
+  background-color: #6a0dad;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.movie-card button:hover,
+.favorito-card button:hover,
+.pagination button:hover {
+  background-color: #7f1fff;
+}
+
+/* Paginação */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pagination button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Loading e Erro */
+.loading, .error {
+  font-size: 1.2rem;
+  margin: 20px 0;
+  color: #ff6b6b; /* vermelho suave para erros */
 }

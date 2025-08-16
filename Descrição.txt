@@ -16,6 +16,15 @@ Exibir informações completas (diretor, elenco, sinopse, avaliação) ao clicar
 4. Lista de Favoritos
 Botão para adicionar/remover filmes da lista de favoritos.
 Persistir favoritos em localStorage.
+Criar um estado favoritos no componente principal.
+
+Função toggleFavorito(filme) para adicionar ou remover da lista.
+
+Salvar no localStorage sempre que mudar.
+
+Carregar do localStorage quando abrir o app.
+
+Botão "Adicionar/Remover" na listagem e nos detalhes.
 
 5. Tratamento de Erros & Loading
 Exibir indicador enquanto aguarda resposta e mensagens de erro quando necessário.

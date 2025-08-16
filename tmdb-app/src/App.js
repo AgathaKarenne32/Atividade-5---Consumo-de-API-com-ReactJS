@@ -5,6 +5,7 @@ import MovieCard from './components/MovieCard';
 import MovieDetails from './components/MovieDetails';
 import Favoritos from './components/Favoritos';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import './App.css'
 
 function App() {
   // Estados principais

@@ -3,29 +3,38 @@
 import { useState } from 'react';
 
 function PaginaBuscar({ onSearch }) {
-  const [query, setQuery] = useState('');
+  const [textoBusca, setTextoBusca] = useState('')
+
+  // atualiza o estado interno
+  const handleInputChange = (e) => {
+    setTextoBusca(e.target.value);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim() !== '') {
-      onSearch(query);
+    // Usa o estado interno (textoBusca) para avisar o pai app.jsx
+    if (textoBusca.trim() !== '') {
+      onSearch(textoBusca); // Chama a função que veio do pai
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
-      <input
+    <form onSubmit={handleSubmit}>
+      {/* Este div vai agrupar o input e o botão */}
+      <div className="search-bar-container">
+        <input
         type="text"
-        placeholder="Digite o nome do filme..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        style={{ padding: '8px', width: '250px' }}
+        className='search-input'
+        placeholder="Buscar por um Filme ou Série..."
+        value={textoBusca}
+        onChange={handleInputChange}
       />
-      <button type="submit" style={{ padding: '8px 12px', marginLeft: '8px' }}>
-        Buscar
-      </button>
+        <button type="submit" className="search-button">
+          Buscar
+        </button>
+      </div>
     </form>
-  );
+  )
 }
 
 export default PaginaBuscar;

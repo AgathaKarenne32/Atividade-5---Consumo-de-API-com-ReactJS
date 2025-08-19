@@ -35,3 +35,17 @@ export const getMovieDetails = async (movieId) => {
     return null;
   }
 };
+
+// Função para buscar filmes por categoria
+export const getMoviesCategory = async (category) => {
+  const response = await fetch(`${BASE_URL}/movie/${category}?api_key=${API_KEY}&language=pt-BR&page=1`);
+  if (!response.ok) {
+    throw new Error('Erro ao buscar filmes da categoria.');
+  }
+  const data = await response.json();
+  
+  // ADICIONE ESTA LINHA PARA VERIFICAR A RESPOSTA
+  console.log(`Dados recebidos para a categoria '${category}':`, data.results);
+  
+  return data.results;
+};

@@ -1,58 +1,105 @@
-/* Reset básico */
+/* --- GERAL & VARIÁVEIS --- */
+:root {
+  --cor-fundo-principal: #1e1e2f;
+  --cor-fundo-secundaria: #2e2e3f;
+  --cor-primaria-roxo: #4b0082;
+  --cor-secundaria-roxo: #6a0dad;
+  --cor-hover-roxo: #7f1fff;
+  --cor-texto-principal: #fff;
+  --cor-texto-secundario: #acacac;
+  --cor-erro: #ff6b6b;
+  --cor-desabilitado: #999;
+}
+
 body, html, #root {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1e1e2f; /* fundo escuro tipo HBO roxo/azulado */
-  color: #fff;
+  background-color: var(--cor-fundo-principal);
+  color: var(--cor-texto-principal);
 }
 
-/* Header e navegação */
+
+/* --- LAYOUT PRINCIPAL & HEADER --- */
 .app-header {
-  background-color: #4b0082; /* roxo HBO */
+  background-color: var(--cor-primaria-roxo);
   padding: 15px 30px;
 }
 
 .nav-bar {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .nav-link {
-  color: #fff;
+  color: var(--cor-texto-principal);
   text-decoration: none;
   font-weight: bold;
+  font-size: 1.1rem;
 }
 
 .nav-link:hover {
   text-decoration: underline;
 }
 
-/* Título das páginas */
 .page-title {
   font-size: 2rem;
   margin-bottom: 20px;
+  padding: 0 30px;
 }
 
-/* Container de filmes */
+
+/* --- COMPONENTES DE BUSCA --- */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--cor-primaria-roxo);
+  border-radius: 25px;
+  background-color: var(--cor-fundo-secundaria);
+  padding: 0 5px 0 20px;
+  height: 46px;
+  margin: 0 30px 40px 30px; /* Adicionado espaçamento */
+}
+
+.search-input {
+  flex-grow: 1;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--cor-texto-principal);
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  color: var(--cor-texto-secundario);
+}
+
+
+/* --- GRIDE DE FILMES & CARDS --- */
 .movies-container,
 .favoritos-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Adicionado para um melhor alinhamento */
-  gap: 10px;
-  width: 100%; /* Garante que o container tente usar todo o espaço */
+  justify-content: center;
+  gap: 20px; /* Aumentado o espaço para respirar */
+  padding: 0 30px;
 }
 
-/* Card de filme */
 .movie-card,
 .favorito-card {
-  background-color: #2e2e3f;
+  background-color: var(--cor-fundo-secundaria);
   border-radius: 8px;
-  width: 200px;
+  width: 220px;
+  height: 480px; /* Altura fixa para garantir alinhamento */
   padding: 10px;
   text-align: center;
   transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Garante que os botões fiquem na base */
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .movie-card:hover,
@@ -64,83 +111,180 @@ body, html, #root {
 .favorito-card img {
   width: 100%;
   border-radius: 8px;
+  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
 }
 
-/* Botões */
-.movie-card button,
-.favorito-card button,
-.pagination button {
-  margin-top: 5px;
-  background-color: #6a0dad;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.movie-card h3,
+.favorito-card h3 {
+  height: 40px; 
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;  
 }
 
-.movie-card button:hover,
-.favorito-card button:hover,
-.pagination button:hover {
-  background-color: #7f1fff;
+
+/* --- CARROSSÉIS DE CATEGORIAS --- */
+.movie-list-section {
+  margin-bottom: 40px; 
 }
 
-/* Paginação */
-.pagination {
-  margin-top: 20px;
+.category-title {
+  font-size: 1.8rem; 
+  margin-bottom: 20px;
+  padding-left: 30px; 
+}
+
+.movies-container-horizontal {
   display: flex;
-  align-items: center;
+  overflow-x: auto; 
+  overflow-y: hidden;
+  gap: 15px;
+  padding: 0 30px 20px 30px;
+}
+
+.movies-container-horizontal::-webkit-scrollbar {
+  height: 8px;
+}
+
+.movies-container-horizontal::-webkit-scrollbar-thumb {
+  background-color: var(--cor-primaria-roxo);
+  border-radius: 10px;
+}
+
+
+/* --- BOTÕES & PAGINAÇÃO --- */
+.search-button, .button-primary {
+  background-color: var(--cor-secundaria-roxo);
+  color: var(--cor-texto-principal);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover, .button-primary:hover {
+  background-color: var(--cor-hover-roxo);
+}
+
+
+/* --- Container dos botões --- */
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
   gap: 10px;
+  margin-top: 10px;
+}
+
+/* --- Botão Ver Detalhes --- */
+.card-buttons .detalhes-button {
+  background-color: var(--cor-secundaria-roxo);
+  color: var(--cor-texto-principal);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.card-buttons .detalhes-button:hover {
+  background-color: var(--cor-hover-roxo);
+  transform: translateY(-2px);
+}
+
+/* --- Botão Favorito --- */
+.card-buttons .favorito-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+.card-buttons .favorito-button:hover {
+  background-color: #ff4c4c;
+  transform: translateY(-2px);
+}
+
+
+.modal-close-button:hover {
+  background-color: var(--cor-hover-roxo);
+  transform: rotate(90deg); /* efeito divertido ao passar o mouse */
+}
+
+.pagination {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 .pagination button:disabled {
-  background-color: #999;
+  background-color: var(--cor-desabilitado);
   cursor: not-allowed;
 }
 
-/* Loading e Erro */
-.loading, .error {
-  font-size: 1.2rem;
-  margin: 20px 0;
-  color: #ff6b6b; /* vermelho suave para erros */
-}
 
-/* O fundo escuro que cobre a página inteira */
+/* --- MODAL DE DETALHES --- */
 .modal-overlay {
-  position: fixed; /* Fica fixo na tela, mesmo com scroll */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Fundo preto com 80% de opacidade */
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Garante que fique na frente de tudo */
+  z-index: 1000;
 }
 
-/* A janela com o conteúdo dos detalhes */
 .modal-content {
-  background-color: #2e2e3f; /* Usando uma cor do seu tema */
-  color: #fff;
+  background-color: var(--cor-fundo-secundaria);
   padding: 30px;
   border-radius: 8px;
   max-width: 700px;
   width: 90%;
   max-height: 85vh;
-  overflow-y: auto; /* Adiciona scroll se o conteúdo for muito grande */
-  position: relative; /* Necessário para posicionar o botão de fechar */
+  overflow-y: auto;
+  position: relative;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-/* Estilo para o botão de fechar 'X' no canto */
 .modal-close-button {
-  position: absolute;
-  top: 10px;
+  position: absolute; /* Posição absoluta em relação ao .modal-content */
+  top: 15px;
   right: 15px;
   background: none;
   border: none;
-  color: #fff;
-  font-size: 1.5rem;
+  padding: 8px 16px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+  color: var(--cor-texto-principal);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  background-color: var(--cor-secundaria-roxo);
+}
+
+/* --- ESTADOS (LOADING, ERRO) --- */
+.loading, .error {
+  font-size: 1.2rem;
+  margin: 40px 0;
+  color: var(--cor-erro);
+  width: 100%;
+  text-align: center;
 }

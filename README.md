@@ -51,8 +51,8 @@ Este projeto foi criado com o objetivo de demonstrar habilidades em:
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-cd SEU-REPOSITORIO
+git clone https://github.com/AgathaKarenne32/Atividade-5---Consumo-de-API-com-ReactJS
+cd tmdb-app
 ````
 
 2. **Instale as dependências:**
@@ -83,29 +83,15 @@ Acesse no navegador: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## 📸 Capturas de Tela
-
-*Adicione aqui prints da aplicação se desejar.*
-
----
-
 ## 📄 Licença
 
 Este projeto está licenciado sob a **MIT License**.
-Sinta-se à vontade para usar, modificar e distribuir conforme necessário.
 
 ---
 
 ## 🙌 Contribuições
 
 Contribuições são muito bem-vindas! Se tiver sugestões ou melhorias, sinta-se livre para abrir uma *issue* ou um *pull request*.
-
----
-
-## 📬 Contato
-
-Se quiser entrar em contato, você pode me encontrar em:
-[GitHub](https://github.com/SEU-USUARIO) • [LinkedIn](https://www.linkedin.com/in/SEU-LINKEDIN)
 
 ---
 

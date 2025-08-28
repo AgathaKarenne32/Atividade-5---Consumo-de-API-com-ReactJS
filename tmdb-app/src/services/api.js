@@ -2,7 +2,8 @@
 //Um campo de texto para o usuário digitar o termo.
 //Exibir lista de resultados com pôster, título, ano e botão para ver detalhes.
 const BASE_URL = 'https://api.themoviedb.org/3';
-const API_KEY = '5510c352e7a9308a9be56eb2f2b0600a';
+require('dotenv').config();
+const API_KEY = process.env.API_KEY;
 
 // 1. Página de Busca
 export const searchMovies = async (query, pageNumber = 1) => {
